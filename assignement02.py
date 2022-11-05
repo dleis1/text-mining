@@ -1,6 +1,5 @@
 import urllib.request
 from thefuzz import fuzz
-import string
 import nltk
 
 # downloading the book from projectgutenberg.org
@@ -132,7 +131,12 @@ def frequencies():
 #print(frequencies())
         
 def main():
-    book1 = get_book()
+    """
+    The main function prints the fuzz ratio of two texts;
+    Finally, the main function prints the function frequencies(), which contains most of the analysis, 
+    while the frequencies() calls all other fucntions necessary for cleaning the data.
+    """
+    book1 = remove_header()
     url = 'https://www.gutenberg.org/cache/epub/1399/pg1399.txt'
     # Anna Karenina by Leo Tolstoy
     with urllib.request.urlopen(url) as f:
@@ -140,7 +144,7 @@ def main():
         data = response.read()  # a `bytes` object
         book2 = data.decode('utf-8')
 
-    print(f"The fuzz ratio between the two texts is {fuzz.ratio(book1, book2)}")
+    print(f"The fuzz ratio between the two texts (Anna Karenina by Leo Tolstoy and The Idiot by Fyodor Dostoyevsky) is {fuzz.ratio(book1, book2)}")
 
     print(frequencies())
 
